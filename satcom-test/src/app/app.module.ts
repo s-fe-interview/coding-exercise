@@ -8,7 +8,9 @@ import { CustomerComponent } from './components/customer/customer.component';
 import { PremiumProductComponent } from './components/premium-product/premium-product.component';
 import { ListComponent } from './components/list/list.component';
 import { ViewerComponent } from './components/viewer/viewer.component';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MockDataService } from './services/mock-data.service';
+import { FilterByNamePipe } from './pipes/filterByName.pipe';
 
 @NgModule({
   declarations: [
@@ -17,15 +19,11 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     CustomerComponent,
     PremiumProductComponent,
     ListComponent,
-    ViewerComponent
+    ViewerComponent,
+    FilterByNamePipe,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+  imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
+  providers: [MockDataService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

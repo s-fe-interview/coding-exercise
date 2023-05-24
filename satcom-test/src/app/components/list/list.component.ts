@@ -1,22 +1,31 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormControl} from "@angular/forms";
-import {Subscription} from "rxjs";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Subscription, debounceTime } from 'rxjs';
+import { Customer } from 'src/app/models/customer';
+import { Product } from 'src/app/models/product';
+import { MockDataService } from 'src/app/services/mock-data.service';
+import { UpdateElementService } from 'src/app/services/update-element.service';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit, OnDestroy {
   filterForm: FormControl;
   subscriptions = new Subscription();
+  elementList: (Product | Customer)[];
 
-  constructor() {
+  filteredSearch!: string;
 
-  }
+  constructor(
+    private mockDataService: MockDataService,
+    private updateElementService: UpdateElementService
+  ) {}
 
   ngOnInit(): void {
-    this.initForm()
+    this.initForm();
+    this.getData();
   }
 
   ngOnDestroy() {
@@ -26,13 +35,25 @@ export class ListComponent implements OnInit, OnDestroy {
   initForm(): void {
     this.filterForm = new FormControl();
     this.subscriptions.add(
-      this.filterForm.valueChanges.subscribe((filterValue) => {
-        this.onFilterChange(filterValue);
-      })
-    )
+      this.filterForm.valueChanges
+        .pipe(debounceTime(300))
+        .subscribe((filterValue) => {
+          this.onFilterChange(filterValue);
+        })
+    );
   }
 
-  onFilterChange(inputSearched: string) {
+  onSelectItem(item: Product | Customer): void {
+    this.updateElementService.sendCurrentElement(item);
+  }
 
+  private getData(): void {
+    this.mockDataService.getData().subscribe((data) => {
+      this.elementList = data;
+    });
+  }
+
+  private onFilterChange(inputSearched: string) {
+    this.filteredSearch = inputSearched;
   }
 }
