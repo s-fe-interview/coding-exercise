@@ -10,7 +10,10 @@ export class FilterByNamePipe implements PipeTransform {
     descriptionQuery = descriptionQuery?.trim().toLowerCase();
 
     if (descriptionQuery) {
-      return items.filter((item) =>
+      const notPremiumProducts = items.filter(
+        (item) => 'premium' in item && !item.premium
+      );
+      return notPremiumProducts.filter((item) =>
         item.name.toLowerCase().includes(descriptionQuery)
       );
     } else {
