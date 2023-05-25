@@ -1,23 +1,29 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform, Type } from '@angular/core';
 import { Product } from '../models/product';
 import { Customer } from '../models/customer';
+
+type Item = Product | Customer;
 
 @Pipe({
   name: 'filterByName',
 })
 export class FilterByNamePipe implements PipeTransform {
-  transform(items: (Product | Customer)[], descriptionQuery: string) {
-    descriptionQuery = descriptionQuery?.trim().toLowerCase();
-
-    if (descriptionQuery) {
-      const notPremiumProducts = items.filter(
-        (item) => 'premium' in item && !item.premium
-      );
-      return notPremiumProducts.filter((item) =>
-        item.name.toLowerCase().includes(descriptionQuery)
-      );
-    } else {
+  transform(items: Item[], descriptionQuery: string): Item[] {
+    if (!descriptionQuery) {
       return items;
     }
+    descriptionQuery = descriptionQuery.trim().toLowerCase();
+
+    return items.filter((item: Item) => {
+      if (isProduct(item) && item.premium) {
+        return false;
+      }
+
+      return item.name.toLowerCase().includes(descriptionQuery);
+    });
   }
+}
+
+function isProduct(item: Item): item is Product {
+  return (item as Product).premium;
 }

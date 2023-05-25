@@ -31,9 +31,11 @@ export class ViewerComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.updateElementService
-      .getCurrentElement()
-      .subscribe((data) => this.addDetailsComponentToView(data));
+    this.subscriptions.add(
+      this.updateElementService
+        .getCurrentElement()
+        .subscribe((data) => this.addDetailsComponentToView(data))
+    );
   }
 
   ngOnDestroy(): void {

@@ -48,9 +48,11 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   private getData(): void {
-    this.mockDataService.getData().subscribe((data) => {
-      this.elementList = data;
-    });
+    this.subscriptions.add(
+      this.mockDataService.getData().subscribe((data) => {
+        this.elementList = data;
+      })
+    );
   }
 
   private onFilterChange(inputSearched: string) {

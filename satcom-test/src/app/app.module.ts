@@ -23,7 +23,7 @@ import { FilterByNamePipe } from './pipes/filterByName.pipe';
     FilterByNamePipe,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
-  providers: [MockDataService],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
