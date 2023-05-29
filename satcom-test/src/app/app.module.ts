@@ -9,8 +9,7 @@ import { PremiumProductComponent } from './components/premium-product/premium-pr
 import { ListComponent } from './components/list/list.component';
 import { ViewerComponent } from './components/viewer/viewer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MockDataService } from './services/mock-data.service';
-import { FilterByNamePipe } from './pipes/filterByName.pipe';
+import { FilterPipe } from './pipes/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -20,7 +19,7 @@ import { FilterByNamePipe } from './pipes/filterByName.pipe';
     PremiumProductComponent,
     ListComponent,
     ViewerComponent,
-    FilterByNamePipe,
+    FilterPipe,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
   providers: [],

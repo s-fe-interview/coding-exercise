@@ -1,9 +1,9 @@
 <div class="list-container">
   <ul class="list">
     <div class="filters">
-      <input type="text" [formControl]="filterForm"  placeholder="Search element"/>
+      <input type="text" [formControl]="filterForm" placeholder="Search element"/>
     </div>
-    <li  *ngFor="let item of elementList | filterByName : filteredSearch" (click)="onSelectItem(item)" class="list-element">
+    <li  *ngFor="let item of elementList | filter : filteredSearch" (click)="onSelectItem(item)" class="list-element">
       {{item.name}}
     </li>
   </ul>
