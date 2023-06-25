@@ -1,8 +1,8 @@
 <div class="app-container">
   <div class="list">
-    <app-list></app-list>
+    <app-list (elementSelected)="viewer.addDetailsComponentToView($event)"></app-list>
   </div>
   <div class="viewer">
-    <app-viewer></app-viewer>
+    <app-viewer #viewer></app-viewer>
   </div>
 </div>
