@@ -14,12 +14,19 @@ export class ListComponent implements OnInit, OnDestroy {
   filterForm: FormControl;
   subscriptions = new Subscription();
   public data$: Observable<(Product | Customer)[]>;
+  selectedElement: Product | Customer | null = null;
 
   constructor(private mockDataService: MockDataService) {}
 
   ngOnInit(): void {
     this.initForm();
     this.loadData();
+
+    this.subscriptions.add(
+      this.mockDataService.getSelectedElement().subscribe((element) => {
+        this.selectedElement = element;
+      })
+    );
   }
 
   ngOnDestroy() {
@@ -48,10 +55,16 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   onClick(element: Product | Customer) {
-    this.mockDataService.setSelectedElement(element);
+    this.mockDataService.setSelectedElement(
+      this.isSelected(element) ? null : element
+    );
   }
 
   isPremium(element: Product | Customer): boolean {
     return 'premium' in element && element.premium;
+  }
+
+  isSelected(element: Product | Customer): boolean {
+    return this.selectedElement === element;
   }
 }

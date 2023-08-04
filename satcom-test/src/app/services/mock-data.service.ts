@@ -8,7 +8,7 @@ import { Customer } from '../models/customer';
 })
 export class MockDataService {
   private mockDataNumber = 30;
-  private selectedElement: Subject<Product | Customer> = new Subject();
+  private selectedElement: Subject<Product | Customer | null> = new Subject();
   private data$: Observable<(Product | Customer)[]> = of([]);
 
   constructor() {}
@@ -29,11 +29,11 @@ export class MockDataService {
     return this.data$;
   }
 
-  setSelectedElement(element: Product | Customer) {
+  setSelectedElement(element: Product | Customer | null) {
     this.selectedElement.next(element);
   }
 
-  getSelectedElement(): Observable<Product | Customer> {
+  getSelectedElement(): Observable<Product | Customer | null> {
     return this.selectedElement.asObservable();
   }
 

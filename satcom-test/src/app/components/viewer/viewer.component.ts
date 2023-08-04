@@ -23,7 +23,7 @@ export class ViewerComponent implements OnInit, OnDestroy {
   subscriptions = new Subscription();
   currentComponent: ComponentRef<
     CustomerComponent | PremiumProductComponent | ProductComponent
-  >;
+  > | null = null;
 
   constructor(
     private viewContainerRef: ViewContainerRef,
@@ -42,9 +42,13 @@ export class ViewerComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-  addDetailsComponentToView(element: Customer | Product): void {
+  addDetailsComponentToView(element: Customer | Product | null): void {
     if (this.currentComponent != null) {
       this.currentComponent.destroy();
+    }
+    if (element == null) {
+      this.currentComponent = null;
+      return;
     }
     const component = DynamicComponentsMapperUtils.getComponent(element);
     this.currentComponent = this.viewContainerRef.createComponent(component);

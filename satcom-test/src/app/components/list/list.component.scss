@@ -5,18 +5,21 @@
 
   .filters {
     display: flex;
-    padding: 0.75em;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid var(--color__border);
     input {
+      all: unset;
       width: 100%;
+      height: 2.5rem;
       font-size: 1rem;
-      border-radius: 4px;
-      border: 1px solid #ccc;
-      background-color: #f3f3f3;
+      background-color: hsl(var(--color_hue), 30%, 90%);
       padding: 0.5em 1em;
       &:focus {
         outline: none;
-        border: 1px solid #aaa;
+        background-color: hsl(var(--color_hue), 10%, 95%);
+      }
+      &::placeholder {
+        color: hsl(var(--color_hue), 30%, 10%);
+        font-style: italic;
       }
     }
   }
@@ -29,28 +32,33 @@
     margin: 0;
     padding: 0.75em;
     overflow-y: auto;
+    overscroll-behavior: contain;
 
     .list-element {
+      all: unset;
       padding-inline: 0.75em;
       padding-block: 0.6em;
-      background-color: #f3f3f3;
-      border-radius: 4px;
-    }
-
-    .list-element {
+      background-color: var(--color__list-el);
+      border-radius: 8px 0 0 8px;
       cursor: pointer;
       user-select: none;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      box-shadow: 1px 1px 1px 0px var(--color__shadow);
 
       .list-premium {
-        text-shadow: 1px 1px 1px #ccc;
+        text-shadow: 1px 1px 1px var(--color__shadow);
       }
 
-      &:hover {
-        background-color: #e3e3e3;
+      &:hover,
+      &:focus {
+        background-color: var(--color__list-el--hover);
         transition: all 0.1s linear;
+      }
+
+      &.selected {
+        background-color: var(--color__list-el--selected);
       }
     }
   }
