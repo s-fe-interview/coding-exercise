@@ -3,7 +3,8 @@
     <div class="filters">
       <input type="text" [formControl]="filterForm" placeholder="Search element"/>
     </div>
-    <li class="list-element">
+    <li class="list-element" *ngFor="let data of data$ | async" (click)="onClick(data)">
+      {{data.name}}
     </li>
   </ul>
 </div>
