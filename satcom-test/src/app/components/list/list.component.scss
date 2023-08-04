@@ -8,7 +8,8 @@
     list-style: none;
     height: 100%;
 
-    .filters, .list-element {
+    .filters,
+    .list-element {
       padding: 10px;
       background-color: #f3f3f3;
       margin: 0 5px 10px;
@@ -22,7 +23,13 @@
     .list-element {
       cursor: pointer;
       user-select: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .list-premium {
+        text-shadow: 1px 1px 1px #ccc;
+      }
     }
   }
 }
-

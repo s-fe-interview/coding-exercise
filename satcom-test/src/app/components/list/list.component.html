@@ -4,7 +4,7 @@
       <input type="text" [formControl]="filterForm" placeholder="Search element"/>
     </div>
     <li class="list-element" *ngFor="let data of data$ | async" (click)="onClick(data)">
-      {{data.name}}
+      {{data.name}} <span *ngIf="isPremium(data)" class="list-premium">⭐</span>
     </li>
   </ul>
 </div>

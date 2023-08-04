@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, of } from 'rxjs';
 import { Customer } from 'src/app/models/customer';
 import { Product } from 'src/app/models/product';
 import { MockDataService } from 'src/app/services/mock-data.service';
@@ -39,9 +39,19 @@ export class ListComponent implements OnInit, OnDestroy {
     this.data$ = this.mockDataService.getData();
   }
 
-  onFilterChange(inputSearched: string) {}
+  onFilterChange(inputSearched: string) {
+    this.subscriptions.add(
+      this.mockDataService.filterData(inputSearched).subscribe((data) => {
+        this.data$ = of(data);
+      })
+    );
+  }
 
   onClick(element: Product | Customer) {
     this.mockDataService.setSelectedElement(element);
+  }
+
+  isPremium(element: Product | Customer): boolean {
+    return 'premium' in element && element.premium;
   }
 }
