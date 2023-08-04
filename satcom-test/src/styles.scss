@@ -1,6 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --layout-gap: 0.5rem;
+}
 
 * {
-  font-family: 'Roboto Light', sans-serif;
+  font-family: "Roboto Light", sans-serif;
   box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 10px;
+  height: 100dvh;
+  width: 100dvw;
 }
