@@ -8,6 +8,10 @@
   box-shadow: 0 0 10px -2px var(--color__shadow);
   overflow: auto;
   border-radius: 8px;
+  max-width: 1920px;
+  @media (max-width: 2560px) {
+    margin: 0 auto;
+  }
 
   .list {
     flex: 1;
